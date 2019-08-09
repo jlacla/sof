@@ -21,6 +21,7 @@
 #include <sof/sof.h>
 #include <sof/trace/trace.h>
 #include <ipc/trace.h>
+#include <sof/drivers/peripheral.h>
 
 /* main firmware context */
 static struct sof sof;

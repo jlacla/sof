@@ -10,7 +10,7 @@
 #ifndef __PLATFORM_DRIVERS_TIMER_H__
 #define __PLATFORM_DRIVERS_TIMER_H__
 
-#include <sof/drivers/interrupt.h>
+//#include <sof/drivers/interrupt.h>
 
 #define TIMER_COUNT	2
 

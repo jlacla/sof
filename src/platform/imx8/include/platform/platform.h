@@ -12,10 +12,30 @@
 
 #if !defined(__ASSEMBLER__) && !defined(LINKER)
 
-#include <sof/drivers/interrupt.h>
 #include <sof/lib/clk.h>
 #include <sof/lib/mailbox.h>
 #include <stdint.h>
+
+#define IMX8QXP 1 // temporary - to be done in config or makefile
+#define IMX8QM  0 // temporary - to be done in config or makefile
+
+/*
+ * STEER Interrupt controller base address BASE_IRQSTR_DSP
+ */
+#define SYSTEM_ADMA_INT_BASE          (0x51000000)
+#ifdef IMX8QXP
+#define SS_ADMA_DBLOG_IRQSTR_DSP      (0x00080000)
+#elif IMX8QM
+#define SS_ADMA_DBLOG_IRQSTR_DSP      (0x000A0000)
+#endif
+#define BASE_IRQSTR_DSP (SYSTEM_ADMA_INT_BASE + SS_ADMA_DBLOG_IRQSTR_DSP)
+
+/**
+ * ESAI modules mapping and other definitions
+ */
+/*  Base addresses */
+#define ADMA__ESAI0_BASE                         (0x59010000u)
+#define ADMA__ESAI1_BASE                         (0x59810000u)
 
 struct timer;
 
