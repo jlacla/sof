@@ -357,7 +357,6 @@ static void esai_irq(void *ign)
 
 static int esai_probe(struct dai *dai)
 {
-	int irq, rc;
 	tracev_esai("ESAI: probe");
 	/* ESAI core reset */
 	dai_write(dai, REG_ESAI_ECR, ESAI_ECR_ERST | ESAI_ECR_ESAIEN);
@@ -372,10 +371,10 @@ static int esai_probe(struct dai *dai)
 
 	dai_write(dai, REG_ESAI_ECR, ESAI_ECR_ESAIEN);
 
-	irq = irqstr_get_sof_int(ESAI_IRQ);
-	rc = interrupt_register(irq, IRQ_AUTO_UNMASK, &esai_irq, dai);
-	if (rc >= 0 || rc == -EEXIST)
-		interrupt_enable(irq, dai);
+//	irq = irqstr_get_sof_int(ESAI_IRQ);
+//	rc = interrupt_register(irq, IRQ_AUTO_UNMASK, &esai_irq, dai);
+//	if (rc >= 0 || rc == -EEXIST)
+//		interrupt_enable(irq, dai);
 
 	tracev_esai("ESAI_REGS_DUMP in esai_probe");
 	esai_regs_dump(dai);
