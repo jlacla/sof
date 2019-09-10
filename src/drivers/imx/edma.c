@@ -898,6 +898,17 @@ static int edma_get_attribute(struct dma *dma, uint32_t type, uint32_t *value)
 static int edma_get_data_size(struct dma_chan_data *channel,
 			      uint32_t *avail, uint32_t *free) {
 	// TODO
+	switch (channel->direction) {
+	case SOF_IPC_STREAM_PLAYBACK:
+		*free = 384;
+		break;
+	case SOF_IPC_STREAM_CAPTURE:
+		*avail = 384;
+		break;
+	default:
+		trace_edma_error("edma_get_data_size() unsupported direction %d", channel->direction);
+		return -EINVAL;
+	}
 	return 0;
 }
 
