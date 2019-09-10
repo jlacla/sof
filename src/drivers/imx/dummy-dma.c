@@ -169,6 +169,12 @@ static int dummy_dma_set_config(struct dma_chan_data *channel,
 	}
 
 	channel->direction = config->direction;
+	if (config->direction != DMA_DIR_HMEM_TO_LMEM &&
+	    config->direction != DMA_DIR_LMEM_TO_HMEM) {
+		trace_dummydma_error("dummy-dmac: %d channel %d invalid direction %d",
+				     channel->dma->plat_data.id, channel->index,
+				     config->direction);
+	}
 	channel->desc_count = config->elem_array.count;
 	ch->elems = &config->elem_array;
 	ch->sg_elem_curr_idx = 0;
@@ -245,7 +251,7 @@ static int docopy(struct dma_chan_data *ch, struct dma_cb_data *next, uint32_t c
 	size_t size = next->elem.size;
 
 	trace_dummydma("dummy_dma -> docopy");
-	trace_dummydma("dummy_dma copy: %p -> %p size %zu", (uintptr_t)dest, (uintptr_t)src, size);
+	trace_dummydma("dummy_dma copy: %p -> %p size %u", (uintptr_t)dest, (uintptr_t)src, size);
 
 	/* Do the copy */
 	memcpy(dest, src, size);
@@ -324,11 +330,12 @@ static int dummy_dma_copy(struct dma_chan_data *channel, int bytes,
 	next.elem.size = 0;
 	ret = docopies(channel, DMA_CB_TYPE_IRQ, bytes);
 
+	trace_dummydma("dummy-dmac -> copy -> ret=%d", ret);
 	next.elem.size = ret;
 	if (channel->cb_type & DMA_CB_TYPE_COPY)
 		channel->cb(channel->cb_data, DMA_CB_TYPE_COPY, &next);
 
-	return ret;
+	return 0;
 }
 
 #if 0
@@ -426,7 +433,16 @@ static int dummy_dma_remove(struct dma *dma)
 static int dummy_dma_get_data_size(struct dma_chan_data *channel,
 				   uint32_t *avail, uint32_t *free)
 {
-	// TODO
+	switch (channel->direction) {
+	case SOF_IPC_STREAM_PLAYBACK:
+		*avail = 384;
+		break;
+	case SOF_IPC_STREAM_CAPTURE:
+		*free = 384;
+		break;
+	default:
+		return -EINVAL;
+	}
 	return 0;
 }
 
