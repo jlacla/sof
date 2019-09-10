@@ -244,7 +244,7 @@ static inline int esai_set_config(struct dai *dai,
 
 	dai_update_bits(dai, REG_ESAI_TFCR,
 				ESAI_xFCR_xFR_MASK | ESAI_xFCR_xWA_MASK | ESAI_xFCR_xFWM_MASK | ESAI_xFCR_TE_MASK | ESAI_xFCR_TIEN,
-				ESAI_xFCR_xWA(16) | ESAI_xFCR_xFWM(64) | ESAI_xFCR_TE(1) | ESAI_xFCR_TIEN);
+				ESAI_xFCR_xWA(16) | ESAI_xFCR_xFWM(32) | ESAI_xFCR_TE(1) | ESAI_xFCR_TIEN);
 	/* ESAI_xFCR_xWA(bits) instead of 16 ^^^^ */
 
 	dai_update_bits(dai, REG_ESAI_TCCR, ESAI_xCCR_xDC_MASK, ESAI_xCCR_xDC(2));
