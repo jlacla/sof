@@ -151,7 +151,8 @@ static inline void dump_tcd(struct dma_chan_data *channel)
 	}
 }
 
-static struct edma_ch_data *get_ch_data(struct dma_chan_data *channel) {
+static struct edma_ch_data *get_ch_data(struct dma_chan_data *channel)
+{
 	tracev_edma("EDMA: get_ch_data(%p)", (uintptr_t)channel);
 
 	struct edma_ch_data *ch = dma_chan_get_data(channel);
@@ -173,11 +174,13 @@ static struct edma_ch_data *get_ch_data(struct dma_chan_data *channel) {
 }
 
 /* TODO: Refactor to remove this function and the one above */
-static inline struct edma_ch_data *get_ch_data_maybe(struct dma_chan_data *channel) {
+static inline struct edma_ch_data *get_ch_data_maybe(struct dma_chan_data *channel)
+{
 	return dma_chan_get_data(channel);
 }
 
-static void free_ch_data(struct dma_chan_data *channel) {
+static void free_ch_data(struct dma_chan_data *channel)
+{
 	struct edma_ch_data *ch = dma_chan_get_data(channel);
 
 	if (ch) {
@@ -375,8 +378,13 @@ static int edma_stop(struct dma_chan_data *channel)
 
 static int edma_copy(struct dma_chan_data *channel, int bytes, uint32_t flags)
 {
-	trace_edma_error("EDMA: ________________ edma_copy not implemented!");
-	return -EINVAL;
+	struct dma_cb_data next = { .elem.size = bytes };
+
+	tracev_edma("edma_copy() is a nop to me");
+	// We need to call the copy() callback
+	if (channel->cb && channel->cb_type & DMA_CB_TYPE_COPY)
+		channel->cb(channel->cb_data, DMA_CB_TYPE_COPY, &next);
+	return 0;
 }
 
 static int edma_status(struct dma_chan_data *channel,
@@ -443,7 +451,8 @@ static int validate_nonsg_config(struct dma_sg_elem_array *sgelems, uint32_t SOF
 
 /* Some set_config helper functions */
 static int setup_tcd(struct dma_chan_data *channel, uint16_t SOFF, uint16_t DOFF,
-		     bool cyclic, bool sg, bool irqoff, struct dma_sg_elem_array *sgelems) {
+		     bool cyclic, bool sg, bool irqoff, struct dma_sg_elem_array *sgelems)
+{
 	struct edma_ch_data *ch = dma_chan_get_data(channel);
 
 	// TODO
@@ -896,7 +905,8 @@ static int edma_get_attribute(struct dma *dma, uint32_t type, uint32_t *value)
 }
 
 static int edma_get_data_size(struct dma_chan_data *channel,
-			      uint32_t *avail, uint32_t *free) {
+			      uint32_t *avail, uint32_t *free)
+{
 	// TODO
 	switch (channel->direction) {
 	case SOF_IPC_STREAM_PLAYBACK:
