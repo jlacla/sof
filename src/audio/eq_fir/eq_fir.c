@@ -382,8 +382,8 @@ static struct comp_dev *eq_fir_new(struct sof_ipc_comp *comp)
 
 	trace_eq("eq_fir_new()");
 
-	if (IPC_IS_SIZE_INVALID(ipc_fir->config)) {
-		IPC_SIZE_ERROR_TRACE(TRACE_CLASS_EQ_FIR, ipc_fir->config);
+	if (IPC_IS_COMP_SIZE_INVALID(ipc_fir)) {
+		IPC_COMP_SIZE_ERROR_TRACE(TRACE_CLASS_EQ_FIR, ipc_fir);
 		return NULL;
 	}
 

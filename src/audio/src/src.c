@@ -501,8 +501,8 @@ static struct comp_dev *src_new(struct sof_ipc_comp *comp)
 
 	trace_src("src_new()");
 
-	if (IPC_IS_SIZE_INVALID(ipc_src->config)) {
-		IPC_SIZE_ERROR_TRACE(TRACE_CLASS_SRC, ipc_src->config);
+	if (IPC_IS_COMP_SIZE_INVALID(ipc_src)) {
+		IPC_COMP_SIZE_ERROR_TRACE(TRACE_CLASS_SRC, ipc_src);
 		return NULL;
 	}
 

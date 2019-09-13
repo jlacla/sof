@@ -92,8 +92,8 @@ static struct comp_dev *mux_new(struct sof_ipc_comp *comp)
 
 	trace_mux("mux_new()");
 
-	if (IPC_IS_SIZE_INVALID(ipc_process->config)) {
-		IPC_SIZE_ERROR_TRACE(TRACE_CLASS_MUX, ipc_process->config);
+	if (IPC_IS_COMP_SIZE_INVALID(ipc_process)) {
+		IPC_COMP_SIZE_ERROR_TRACE(TRACE_CLASS_MUX, ipc_process);
 		return NULL;
 	}
 

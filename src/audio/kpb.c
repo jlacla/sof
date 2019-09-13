@@ -102,8 +102,8 @@ static struct comp_dev *kpb_new(struct sof_ipc_comp *comp)
 	trace_kpb("kpb_new()");
 
 	/* Validate input parameters */
-	if (IPC_IS_SIZE_INVALID(ipc_process->config)) {
-		IPC_SIZE_ERROR_TRACE(TRACE_CLASS_KPB, ipc_process->config);
+	if (IPC_IS_COMP_SIZE_INVALID(ipc_process)) {
+		IPC_COMP_SIZE_ERROR_TRACE(TRACE_CLASS_KPB, ipc_process);
 		return NULL;
 	}
 

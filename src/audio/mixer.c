@@ -114,8 +114,8 @@ static struct comp_dev *mixer_new(struct sof_ipc_comp *comp)
 
 	trace_mixer("mixer_new()");
 
-	if (IPC_IS_SIZE_INVALID(ipc_mixer->config)) {
-		IPC_SIZE_ERROR_TRACE(TRACE_CLASS_MIXER, ipc_mixer->config);
+	if (IPC_IS_COMP_SIZE_INVALID(ipc_mixer)) {
+		IPC_COMP_SIZE_ERROR_TRACE(TRACE_CLASS_MIXER, ipc_mixer);
 		return NULL;
 	}
 

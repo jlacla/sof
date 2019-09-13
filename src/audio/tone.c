@@ -381,8 +381,8 @@ static struct comp_dev *tone_new(struct sof_ipc_comp *comp)
 
 	trace_tone("tone_new()");
 
-	if (IPC_IS_SIZE_INVALID(ipc_tone->config)) {
-		IPC_SIZE_ERROR_TRACE(TRACE_CLASS_TONE, ipc_tone->config);
+	if (IPC_IS_COMP_SIZE_INVALID(ipc_tone)) {
+		IPC_COMP_SIZE_ERROR_TRACE(TRACE_CLASS_TONE, ipc_tone);
 		return NULL;
 	}
 

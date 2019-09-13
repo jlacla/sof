@@ -142,8 +142,8 @@ static struct comp_dev *volume_new(struct sof_ipc_comp *comp)
 
 	trace_volume("volume_new()");
 
-	if (IPC_IS_SIZE_INVALID(ipc_vol->config)) {
-		IPC_SIZE_ERROR_TRACE(TRACE_CLASS_VOLUME, ipc_vol->config);
+	if (IPC_IS_COMP_SIZE_INVALID(ipc_vol)) {
+		IPC_COMP_SIZE_ERROR_TRACE(TRACE_CLASS_VOLUME, ipc_vol);
 		return NULL;
 	}
 

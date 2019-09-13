@@ -260,8 +260,8 @@ static int ipc_stream_pcm_params(uint32_t stream)
 
 	/* Parse host tables */
 	host = (struct sof_ipc_comp_host *)&cd->comp;
-	if (IPC_IS_SIZE_INVALID(host->config)) {
-		IPC_SIZE_ERROR_TRACE(TRACE_CLASS_IPC, host->config);
+	if (IPC_IS_COMP_SIZE_INVALID(host)) {
+		IPC_COMP_SIZE_ERROR_TRACE(TRACE_CLASS_IPC, host);
 		err = -EINVAL;
 		goto error;
 	}

@@ -101,6 +101,16 @@ struct sof_ipc_comp_config {
 	uint32_t reserved[2];
 } __attribute__((packed));
 
+/* validates internal non tail structures within IPC command structure */
+#define IPC_IS_COMP_SIZE_INVALID(pcomp)					\
+	pcomp->comp.hdr.size == sizeof(*pcomp) ? 0 : 1
+
+/* convenience error trace for mismatched internal structures */
+#define IPC_COMP_SIZE_ERROR_TRACE(class, pcomp)				\
+	trace_error(class, "ipc: size %d expected %d",			\
+		    pcomp->comp.hdr.size, sizeof(*pcomp))
+
+
 /* generic host component */
 struct sof_ipc_comp_host {
 	struct sof_ipc_comp comp;

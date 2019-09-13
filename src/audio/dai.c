@@ -156,8 +156,8 @@ static struct comp_dev *dai_new(struct sof_ipc_comp *comp)
 
 	trace_dai("dai_new()");
 
-	if (IPC_IS_SIZE_INVALID(ipc_dai->config)) {
-		IPC_SIZE_ERROR_TRACE(TRACE_CLASS_DAI, ipc_dai->config);
+	if (IPC_IS_COMP_SIZE_INVALID(ipc_dai)) {
+		IPC_COMP_SIZE_ERROR_TRACE(TRACE_CLASS_DAI, ipc_dai);
 		trace_dai_error("dai_new(), IPC size invalid");
 		return NULL;
 	}

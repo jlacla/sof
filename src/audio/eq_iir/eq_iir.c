@@ -470,8 +470,8 @@ static struct comp_dev *eq_iir_new(struct sof_ipc_comp *comp)
 
 	trace_eq("eq_iir_new()");
 
-	if (IPC_IS_SIZE_INVALID(ipc_iir->config)) {
-		IPC_SIZE_ERROR_TRACE(TRACE_CLASS_EQ_IIR, ipc_iir->config);
+	if (IPC_IS_COMP_SIZE_INVALID(ipc_iir)) {
+		IPC_COMP_SIZE_ERROR_TRACE(TRACE_CLASS_EQ_IIR, ipc_iir);
 		return NULL;
 	}
 

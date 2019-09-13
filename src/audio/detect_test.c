@@ -263,8 +263,8 @@ static struct comp_dev *test_keyword_new(struct sof_ipc_comp *comp)
 
 	trace_keyword("test_keyword_new()");
 
-	if (IPC_IS_SIZE_INVALID(ipc_keyword->config)) {
-		IPC_SIZE_ERROR_TRACE(TRACE_CLASS_KEYWORD, ipc_keyword->config);
+	if (IPC_IS_COMP_SIZE_INVALID(ipc_keyword)) {
+		IPC_COMP_SIZE_ERROR_TRACE(TRACE_CLASS_KEYWORD, ipc_keyword);
 		return NULL;
 	}
 
