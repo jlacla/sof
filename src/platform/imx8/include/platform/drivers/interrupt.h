@@ -61,6 +61,8 @@
 /* 32 HW interrupts + 8 IRQ_STEER lines each with 64 interrupts */
 #define PLATFORM_IRQ_HW_NUM	XCHAL_NUM_INTERRUPTS
 #define PLATFORM_IRQ_CHILDREN	64
+/* The cascaded struct must be modulo 64.*/
+#define PLATFORM_IRQ_FIRST_CHILD 0
 
 /* irqstr_get_sof_int() - Convert IRQ_STEER interrupt to SOF logical
  * interrupt
